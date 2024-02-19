@@ -7,6 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const name = require('../routes/nameRoutes');
 const currency = require('../routes/currencyRoutes');
+const capital = require('../routes/capitalRoutes');
 const allCountries = require('../routes/allRoutes');
 
 // app
@@ -22,9 +23,11 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.json('Welcome page');
 });
+
 app.use('/v1/todos', allCountries);
 app.use('/v1/nombre', name);
 app.use('/v1/moneda', currency);
+app.use('/v1/capital', capital);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

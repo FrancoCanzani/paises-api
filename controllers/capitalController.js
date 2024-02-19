@@ -3,25 +3,32 @@ const applyFilters = require('../utils/applyFilters');
 
 const countriesData = getCountriesData();
 
-const getCountryByCurrency = (req, res) => {
+const getCountryByCapital = (req, res) => {
   try {
-    const moneda = req.params.moneda;
+    const capital = req.params.capital;
 
-    if (!moneda) {
+    if (!capital) {
       return res.status(400).json({
-        error: 'Proporcione el código de la moneda que desea filtrar',
+        error: 'Proporcione la capital del país que desea filtrar',
       });
     }
 
     let filteredCountries = countriesData.filter((pais) => {
-      return (
-        pais.monedas && Object.keys(pais.monedas).includes(moneda.toUpperCase())
-      );
+      if (Array.isArray(pais.capital)) {
+        return pais.capital.some(
+          (cap) => cap && cap.toLowerCase().includes(capital.toLowerCase())
+        );
+      } else {
+        return (
+          pais.capital &&
+          pais.capital.toLowerCase().includes(capital.toLowerCase())
+        );
+      }
     });
 
     if (filteredCountries.length === 0) {
       return res.status(404).json({
-        error: 'No se encontraron países con la moneda especificada',
+        error: 'No se encontraron países con la capital especificada',
       });
     }
 
@@ -36,4 +43,4 @@ const getCountryByCurrency = (req, res) => {
   }
 };
 
-module.exports = { getCountryByCurrency };
+module.exports = { getCountryByCapital };
