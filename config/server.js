@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const name = require('../routes/nameRoutes');
+const currency = require('../routes/currencyRoutes');
 const allCountries = require('../routes/allRoutes');
 
 // app
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 });
 app.use('/v1/todos', allCountries);
 app.use('/v1/nombre', name);
+app.use('/v1/moneda', currency);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

@@ -1,12 +1,11 @@
 const getCountriesData = require('../utils/getCountriesData');
+const applyFilters = require('../utils/applyFilters');
 
 const countriesData = getCountriesData();
 
 const getCountryByName = (req, res) => {
   try {
     let nombre = req.params.nombre;
-    const filtros = req.query.filtros;
-    console.log(filtros);
     nombre = decodeURIComponent(nombre);
 
     if (!nombre) {
@@ -15,7 +14,7 @@ const getCountryByName = (req, res) => {
         .json({ error: 'Proporcione el nombre del país que desea filtrar' });
     }
 
-    const filteredCountries = countriesData.filter((pais) => {
+    let filteredCountries = countriesData.filter((pais) => {
       return (
         pais.nombre.comun.toLowerCase().includes(nombre.toLowerCase()) ||
         pais.nombre.oficial.toLowerCase() === nombre.toLowerCase() ||
@@ -23,9 +22,13 @@ const getCountryByName = (req, res) => {
       );
     });
 
+    if (req.query.filtros) {
+      const filtros = req.query.filtros.split(',');
+      filteredCountries = applyFilters(filteredCountries, filtros);
+    }
+
     res.json(filteredCountries);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: 'Error del servidor' });
   }
 };
