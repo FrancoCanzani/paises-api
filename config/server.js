@@ -9,6 +9,7 @@ const name = require('../routes/nameRoutes');
 const currency = require('../routes/currencyRoutes');
 const capital = require('../routes/capitalRoutes');
 const allCountries = require('../routes/allRoutes');
+const language = require('../routes/languageRoutes');
 
 // app
 const app = express();
@@ -21,13 +22,14 @@ app.use(cors());
 
 // routes
 app.get('/', (req, res) => {
-  res.json('Welcome page');
+  res.json('This will be a welcome page');
 });
 
 app.use('/v1/todos', allCountries);
 app.use('/v1/nombre', name);
 app.use('/v1/moneda', currency);
 app.use('/v1/capital', capital);
+app.use('/v1/idioma', language);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
