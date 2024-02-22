@@ -10,6 +10,7 @@ const currency = require('../routes/currencyRoutes');
 const capital = require('../routes/capitalRoutes');
 const allCountries = require('../routes/allRoutes');
 const language = require('../routes/languageRoutes');
+const population = require('../routes/populationRoutes');
 
 // app
 const app = express();
@@ -30,6 +31,7 @@ app.use('/v1/nombre', name);
 app.use('/v1/moneda', currency);
 app.use('/v1/capital', capital);
 app.use('/v1/idioma', language);
+app.use('/v1/poblacion', population);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

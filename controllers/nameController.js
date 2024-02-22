@@ -27,7 +27,7 @@ const getCountryByName = (req, res) => {
       filteredCountries = applyFilters(filteredCountries, filtros);
     }
 
-    res.json(filteredCountries);
+    res.status(200).json(filteredCountries);
   } catch (error) {
     res.status(500).json({ error: 'Error del servidor' });
   }
