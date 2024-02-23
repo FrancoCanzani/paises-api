@@ -12,6 +12,7 @@ const allCountries = require('../routes/allRoutes');
 const language = require('../routes/languageRoutes');
 const population = require('../routes/populationRoutes');
 const region = require('../routes/regionRoutes');
+const path = require('path');
 
 // app
 const app = express();
@@ -22,10 +23,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
 
-// routes
-app.get('/', (req, res) => {
-  res.json('This will be a welcome page');
-});
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/v1/todos', allCountries);
 app.use('/v1/nombre', name);
