@@ -7,7 +7,7 @@ export default function Anchor({ href, children, className }) {
       href={href}
       target='_blank'
       className={cn(
-        'font-medium bg-slate-900 hover:bg-slate-800 px-2 py-1 rounded-md',
+        'font-medium bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded-sm',
         className
       )}
     >
