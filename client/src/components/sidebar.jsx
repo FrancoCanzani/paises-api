@@ -8,7 +8,7 @@ export default function Sidebar() {
       <div className='flex flex-col py-1'>
         <Section id='#sobre'>Sobre este proyecto</Section>
         <Section id='#endpoints'>Endpoints</Section>
-        <div className='pl-2 flex flex-col italic'>
+        <div className='pl-2 flex flex-col italic text-slate-600'>
           <Section id='#todos'>Todos</Section>
           <Section id='#nombre'>Nombre</Section>
           <Section id='#moneda'>Moneda</Section>
