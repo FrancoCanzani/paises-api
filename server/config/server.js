@@ -19,12 +19,9 @@ const { rateLimit } = require('express-rate-limit');
 const app = express();
 
 // rate limiter
-const millisecondsInDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-const daysInMonth = 30; // Average number of days in a month
-
 const limiter = rateLimit({
-  windowMs: daysInMonth * millisecondsInDay, // Total milliseconds in a month
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per `window`
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: 'Solo se permiten 100 requests al mes.',
@@ -36,6 +33,10 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
+// Error handling middleware
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: 'Error del servidor' });
+});
 
 app.use(express.static(path.join(__dirname, '../public')));
 
