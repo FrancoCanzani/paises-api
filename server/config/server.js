@@ -33,13 +33,11 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
-// Error handling middleware
-app.use((err, req, res, next) => {
-  res.status(500).json({ error: 'Error del servidor' });
-});
 
+// Static files middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
+// routes
 app.use('/v1/todos', allCountries);
 app.use('/v1/nombre', name);
 app.use('/v1/moneda', currency);
@@ -47,6 +45,11 @@ app.use('/v1/capital', capital);
 app.use('/v1/idioma', language);
 app.use('/v1/poblacion', population);
 app.use('/v1/region', region);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: 'Error del servidor' });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
